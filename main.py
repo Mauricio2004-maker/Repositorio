@@ -2,28 +2,27 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-# Base de datos falsa
-users = []
+usuarios = []
 
-# CREATE
-@app.post("/users")
-def create_user(user: dict):
-    users.append(user)
-    return {"message": "Usuario creado", "data": user}
+# Crear
+@app.post("/usuarios")
+def crear(usuario: dict):
+    usuarios.append(usuario)
+    return usuario
 
-# READ
-@app.get("/users")
-def get_users():
-    return users
+# Leer
+@app.get("/usuarios")
+def listar():
+    return usuarios
 
-# UPDATE
-@app.put("/users/{user_id}")
-def update_user(user_id: int, user: dict):
-    users[user_id] = user
-    return {"message": "Usuario actualizado", "data": user}
+# Actualizar
+@app.put("/usuarios/{id}")
+def actualizar(id: int, usuario: dict):
+    usuarios[id] = usuario
+    return usuario
 
-# DELETE
-@app.delete("/users/{user_id}")
-def delete_user(user_id: int):
-    deleted = users.pop(user_id)
-    return {"message": "Usuario eliminado", "data": deleted}
+# Eliminar
+@app.delete("/usuarios/{id}")
+def eliminar(id: int):
+    eliminado = usuarios.pop(id)
+    return eliminado
