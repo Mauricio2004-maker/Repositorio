@@ -54,7 +54,7 @@ async def server_error_handler(request: Request, exc):
     )
 
 
-app.include_router(auth.router)   # agregar antes de los demás routers
+app.include_router(auth.router) 
 app.include_router(clientes.router)
 app.include_router(envios.router)
 app.include_router(conductores.router)
