@@ -60,6 +60,7 @@ app.include_router(envios.router)
 app.include_router(conductores.router)
 app.include_router(clientes.router)
 app.include_router(envios.router)
+app.include_router(conductores.router)
 
 @app.get("/")
 def root():
