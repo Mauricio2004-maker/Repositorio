@@ -3,6 +3,7 @@ from sqlmodel import Session, select
 from database import get_session
 from models import Envio, Cliente
 from schemas import EnvioCreate, EnvioRead, EnvioUpdate
+from auth import verificar_api_key
 
 router = APIRouter(prefix="/envios", tags=["Envíos"])
 router = APIRouter(prefix="/envios", tags=["Envíos"])
@@ -60,3 +61,15 @@ def actualizar_envio(
     session.commit()
     session.refresh(envio)
     return envio
+
+@router.delete("/{envio_id}", status_code=204)
+def eliminar_envio(
+    envio_id: int,
+    session: Session = Depends(get_session),
+    _: str = Depends(verificar_api_key),
+):
+    envio = session.get(Envio, envio_id)
+    if not envio:
+        raise HTTPException(status_code=404, detail="Envío no encontrado")
+    session.delete(envio)
+    session.commit()
