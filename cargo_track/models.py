@@ -61,4 +61,14 @@ class Ruta(SQLModel, table=True):
     conductores: List[Conductor] = Relationship(
         back_populates="rutas", link_model=ConductorRuta
     )
-    
+
+
+from datetime import datetime
+
+
+class HistorialEstado(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    envio_id: int = Field(foreign_key="envio.id")
+    estado: EstadoEnvio
+    fecha: datetime = Field(default_factory=datetime.utcnow)
+    nota: Optional[str] = Field(default=None)
